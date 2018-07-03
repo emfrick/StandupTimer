@@ -25,7 +25,7 @@ class App extends React.Component {
 
     toggleModal() {
         this.setState({
-            list: this.state.list,
+            ...this.state,
             showModal: !this.state.showModal
         })
     }
@@ -35,11 +35,6 @@ class App extends React.Component {
         this.state.list.push({
             title: `Timer ${this.state.list.length + 1}`,
             time: `${time} ${units}`
-        })
-
-        this.setState({
-            list: this.state.list,
-            showModal: this.state.showModal
         })
 
         this.toggleModal()

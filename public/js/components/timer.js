@@ -24,14 +24,14 @@ class Timer extends Component {
 
     setTime(evt) {
         this.setState({
+            ...this.state,
             time: parseInt(evt.target.value),
-            units: this.state.units
         })
     }
 
     setUnits(item) {
         this.setState({
-            time: this.state.time,
+            ...this.state,
             units: item
         })
     }
