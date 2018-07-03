@@ -9,16 +9,6 @@ import TimerList from './components/TimerList'
 import Footer from './components/Footer'
 import Timer from './components/Timer'
 
-const dummyData = [
-    { title: "Timer 1", blurb: "Let's Go", time: "60 mins" },
-    { title: "Timer 2", blurb: "Keep Going", time: "30 mins" },
-    { title: "Timer 3", blurb: "You can do it", time: "45 mins" },
-    { title: "Timer 4", blurb: "Blurb", time: "30 mins" },
-    { title: "Timer 5", blurb: "Something here", time: "15 mins" },
-    { title: "Timer 6", blurb: "Another one", time: "25 mins" },
-    { title: "Timer 7", blurb: "Ok Again", time: "45 mins" }
-]
-
 class App extends React.Component {
 
     constructor(props) {
@@ -28,32 +18,43 @@ class App extends React.Component {
         this.startTimer = this.startTimer.bind(this)
 
         this.state = {
+            list: [],
             showModal: false
         }
     }
 
     toggleModal() {
         this.setState({
+            list: this.state.list,
             showModal: !this.state.showModal
         })
     }
 
     startTimer(time, units) {
-        let timer = moment.duration(time, units)
-        console.log(timer)
+        let timer = moment.duration(time, units)        
+        this.state.list.push({
+            title: `Timer ${this.state.list.length + 1}`,
+            time: `${time} ${units}`
+        })
+
+        this.setState({
+            list: this.state.list,
+            showModal: this.state.showModal
+        })
+
         this.toggleModal()
     }
 
     render() {
         return (
             <div>
-                <Header title="Standup Timer" />
+                <Header title={"Standup Timer"} />
                 <Timer
                     show={this.state.showModal}
                     onCancel={this.toggleModal}
                     onStart={(time, units) => this.startTimer(time, units)}
                 />
-                <TimerList list={dummyData} />
+                <TimerList list={this.state.list} />
                 <Footer btnClickHandler={this.toggleModal} />
             </div>
         )
