@@ -23,26 +23,36 @@ class App extends React.Component {
     constructor(props) {
         super(props)
 
-        this.btnClickHandler = this.btnClickHandler.bind(this)
+        this.toggleModal = this.toggleModal.bind(this)
+        this.startTimer = this.startTimer.bind(this)
 
         this.state = {
             showModal: false
         }
     }
 
-    btnClickHandler() {
+    toggleModal() {
         this.setState({
-            showModal: true
+            showModal: !this.state.showModal
         })
+    }
+
+    startTimer(time) {
+        console.log(`Starting a ${time} timer`)
+        this.toggleModal()
     }
 
     render() {
         return (
             <div>
                 <Header title="Standup Timer" />
-                <Timer show={this.state.showModal} />
+                <Timer
+                    show={this.state.showModal}
+                    onCancel={this.toggleModal}
+                    onStart={(time) => this.startTimer(time)}
+                />
                 <TimerList list={dummyData} />
-                <Footer btnClickHandler={this.btnClickHandler} />
+                <Footer btnClickHandler={this.toggleModal} />
             </div>
         )
     }
