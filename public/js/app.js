@@ -6,6 +6,7 @@ import '../css/styles.sass'
 import Header from './components/Header'
 import TimerList from './components/TimerList'
 import Footer from './components/Footer'
+import Timer from './components/Timer'
 
 const dummyData = [
     { title: "Timer 1", blurb: "Let's Go", time: "60 mins" },
@@ -19,12 +20,29 @@ const dummyData = [
 
 class App extends React.Component {
 
+    constructor(props) {
+        super(props)
+
+        this.btnClickHandler = this.btnClickHandler.bind(this)
+
+        this.state = {
+            showModal: false
+        }
+    }
+
+    btnClickHandler() {
+        this.setState({
+            showModal: true
+        })
+    }
+
     render() {
         return (
             <div>
                 <Header title="Standup Timer" />
+                <Timer show={this.state.showModal} />
                 <TimerList list={dummyData} />
-                <Footer />
+                <Footer btnClickHandler={this.btnClickHandler} />
             </div>
         )
     }
