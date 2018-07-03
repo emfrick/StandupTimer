@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import moment from 'moment'
 
 import '../css/styles.sass'
 
@@ -37,8 +38,9 @@ class App extends React.Component {
         })
     }
 
-    startTimer(time) {
-        console.log(`Starting a ${time} timer`)
+    startTimer(time, units) {
+        let timer = moment.duration(time, units)
+        console.log(timer)
         this.toggleModal()
     }
 
@@ -49,7 +51,7 @@ class App extends React.Component {
                 <Timer
                     show={this.state.showModal}
                     onCancel={this.toggleModal}
-                    onStart={(time) => this.startTimer(time)}
+                    onStart={(time, units) => this.startTimer(time, units)}
                 />
                 <TimerList list={dummyData} />
                 <Footer btnClickHandler={this.toggleModal} />
