@@ -12,7 +12,7 @@ let tray
 // Listen for app to be ready
 app.on('ready', () => {
     // Create new window
-    mainWindow = new BrowserWindow({ width: 480, height: 600 })
+    mainWindow = new BrowserWindow({ width: 480, height: 600, show: false })
 
     // Load HTML file into window
     mainWindow.loadURL(process.env.LOCAL_URL || url.format({
@@ -20,6 +20,12 @@ app.on('ready', () => {
         protocol: 'file',
         slashes: true
     }))
+
+    // Show the window once ready
+    mainWindow.on('ready-to-show', () => {
+        console.log('ready-to-show')
+        mainWindow.show()
+    })
 
     // Quit app when closed
     mainWindow.on('closed', () => {
